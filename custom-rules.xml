@@ -1,0 +1,93 @@
+<group name="custom_rules">
+    <!-- Rule for High-Priority Events (Reducing False Positives) -->
+    <rule id="100001" level="12">
+        <decoded_as>json</decoded_as>
+        <field name="event.category">attack</field>
+        <field name="event.severity">high</field>
+        <description>High severity attack detected</description>
+        <group>attack,high_severity</group>
+        <options>no_full_log</options>
+        <frequency>3</frequency>
+        <timeframe>60</timeframe>
+        <firedtimes>3</firedtimes>
+    </rule>
+
+    <!-- Rule for Known Benign Alerts (False Positive Reduction) -->
+    <rule id="100002" level="0">
+        <decoded_as>json</decoded_as>
+        <field name="event.name">network_scan</field>
+        <field name="source.ip">10.0.0.1</field>
+        <description>Suppressed: Known benign network scan from internal scanner</description>
+        <group>suppressed</group>
+        <options>no_full_log</options>
+    </rule>
+
+    <!-- Rule for Detailed Reporting on True Positives -->
+    <rule id="100003" level="10">
+        <decoded_as>json</decoded_as>
+        <field name="event.category">authentication</field>
+        <field name="event.severity">critical</field>
+        <field name="event.outcome">failure</field>
+        <description>Critical authentication failure detected</description>
+        <group>authentication,critical</group>
+        <options>no_full_log</options>
+    </rule>
+
+    <!-- Rule for Frequency-Based Alerts (Reducing Noise) -->
+    <rule id="100004" level="9">
+        <decoded_as>json</decoded_as>
+        <field name="event.category">system</field>
+        <field name="event.severity">medium</field>
+        <description>Medium severity system event detected</description>
+        <group>system_events,medium_severity</group>
+        <frequency>10</frequency>
+        <timeframe>300</timeframe>
+        <firedtimes>5</firedtimes>
+    </rule>
+
+    <!-- Rule for Unusual Activity Detection -->
+    <rule id="100005" level="11">
+        <decoded_as>json</decoded_as>
+        <field name="event.category">authentication</field>
+        <field name="event.outcome">failure</field>
+        <description>Multiple failed login attempts detected</description>
+        <group>authentication,bruteforce</group>
+        <frequency>5</frequency>
+        <timeframe>120</timeframe>
+        <firedtimes>3</firedtimes>
+    </rule>
+
+    <!-- Rule for Suspicious Network Activity -->
+    <rule id="100006" level="10">
+        <decoded_as>json</decoded_as>
+        <field name="event.category">network</field>
+        <field name="event.outcome">suspicious</field>
+        <description>Suspicious network activity detected</description>
+        <group>network,suspicious</group>
+        <options>no_full_log</options>
+        <frequency>7</frequency>
+        <timeframe>60</timeframe>
+    </rule>
+
+    <!-- Rule for Unauthorized File Changes -->
+    <rule id="100007" level="13">
+        <decoded_as>json</decoded_as>
+        <field name="event.category">file_integrity</field>
+        <field name="event.outcome">unauthorized_change</field>
+        <description>Unauthorized file change detected</description>
+        <group>file_integrity,unauthorized_change</group>
+        <options>no_full_log</options>
+    </rule>
+
+    <!-- Rule for High CPU Usage -->
+    <rule id="100008" level="9">
+        <decoded_as>json</decoded_as>
+        <field name="event.category">system</field>
+        <field name="resource.usage.cpu">high</field>
+        <description>High CPU usage detected</description>
+        <group>system,cpu_usage</group>
+        <options>no_full_log</options>
+        <frequency>5</frequency>
+        <timeframe>120</timeframe>
+    </rule>
+</group>
